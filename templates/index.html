@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Student Management System</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<h1>Student Management System</h1>
+
+<form action="/add" method="POST">
+
+    Name:
+    <input type="text" name="name" required>
+    <br><br>
+
+    Email:
+    <input type="email" name="email" required>
+    <br><br>
+
+    Department:
+    <input type="text" name="department" required>
+    <br><br>
+
+    Year:
+    <input type="number" name="year" required>
+    <br><br>
+
+    <button type="submit">
+        Add Student
+    </button>
+
+</form>
+
+
+<br><br>
+
+<a href="/students">
+    <button type="button">
+        View Students
+    </button>
+</a>
+
+
+</body>
+
+</html>
