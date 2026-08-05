@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="dashboard">
+
+        <h1>🎓 Student Management System</h1>
+
+        <p class="subtitle">Manage Student Records Efficiently</p>
+
+        <div class="welcome-card">
+            <h2>👋 Welcome</h2>
+            <p>Add, Update, Delete and Manage Student Records Easily.</p>
+        </div>
+
+        <div class="info-cards">
+
+            <div class="card pink">
+                <h3>👨‍🎓 Students</h3>
+                <p>Store complete student information.</p>
+            </div>
+
+            <div class="card purple">
+                <h3>📊 Attendance</h3>
+                <p>Manage attendance percentage.</p>
+            </div>
+
+            <div class="card blue">
+                <h3>📞 Parent Details</h3>
+                <p>Save parent name and mobile number.</p>
+            </div>
+
+            <div class="card green">
+                <h3>🏫 Department</h3>
+                <p>CSE • ECE • EEE • Civil • Mechanical</p>
+            </div>
+
+        </div>
+
+        <div class="form-box">
+
+            <h2>Add Student</h2>
+
+            <form action="/add" method="POST">
+
+                <input type="text" name="name" placeholder="Student Name" required>
+
+                <input type="text" name="parent_name" placeholder="Parent Name" required>
+
+                <input type="text" name="mobile" placeholder="Mobile Number" required>
+
+                <input type="email" name="email" placeholder="Email" required>
+
+                <input type="text" name="department" placeholder="Department" required>
+
+                <input type="number" name="year" placeholder="Year" min="1" max="4" required>
+
+                <input type="number" name="attendance" placeholder="Attendance (%)" min="0" max="100" required>
+
+                <button type="submit">➕ Add Student</button>
+
+            </form>
+
+        </div>
+
+        <div class="buttons">
+
+            <a href="/students">
+                <button type="button">📋 View Students</button>
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<footer>
+© 2026 Student Management System | Developed by Neha Ballapuram
+</footer>
+
+</body>
+</html>

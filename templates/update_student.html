@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Update Student</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="dashboard">
+
+<h1>✏️ Update Student</h1>
+
+<p class="subtitle">Edit Student Information</p>
+
+<div class="form-box">
+
+<form method="POST">
+
+<input type="text"
+       name="name"
+       placeholder="Student Name"
+       value="{{ student[1] }}"
+       required>
+
+<input type="text"
+       name="parent_name"
+       placeholder="Parent Name"
+       value="{{ student[2] }}"
+       required>
+
+<input type="text"
+       name="mobile"
+       placeholder="Mobile Number"
+       value="{{ student[3] }}"
+       required>
+
+<input type="email"
+       name="email"
+       placeholder="Email"
+       value="{{ student[4] }}"
+       required>
+
+<input type="text"
+       name="department"
+       placeholder="Department"
+       value="{{ student[5] }}"
+       required>
+
+<input type="number"
+       name="year"
+       placeholder="Year"
+       min="1"
+       max="4"
+       value="{{ student[6] }}"
+       required>
+
+<input type="number"
+       name="attendance"
+       placeholder="Attendance (%)"
+       min="0"
+       max="100"
+       value="{{ student[7] }}"
+       required>
+
+<button type="submit">
+💾 Save Changes
+</button>
+
+</form>
+
+<br>
+
+<a href="/students">
+<button type="button">
+⬅ Back to Students
+</button>
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<footer>
+© 2026 Student Management System | Developed by Neha Ballapuram
+</footer>
+
+</body>
+</html>
