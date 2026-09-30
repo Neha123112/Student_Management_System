@@ -1,19 +1,23 @@
+import os
 from flask import Flask, render_template, request
 import mysql.connector
 
 app = Flask(__name__)
 
 
+# Database connection
 db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="Nandu@123",
-    database="student_db"
+    host=os.getenv("MYSQLHOST", "localhost"),
+    port=int(os.getenv("MYSQLPORT", 3306)),
+    user=os.getenv("MYSQLUSER", "root"),
+    password=os.getenv("MYSQLPASSWORD", ""),
+    database=os.getenv("MYSQLDATABASE", "student_db")
 )
 
 cursor = db.cursor()
 
 
+# Home
 @app.route("/")
 def home():
     return render_template("index.html")
@@ -28,16 +32,17 @@ def add_student():
     department = request.form["department"]
     year = request.form["year"]
 
-
     cursor.execute(
-        "INSERT INTO students(name,email,department,year) VALUES(%s,%s,%s,%s)",
-        (name,email,department,year)
+        """
+        INSERT INTO students(name, email, department, year)
+        VALUES(%s, %s, %s, %s)
+        """,
+        (name, email, department, year)
     )
 
     db.commit()
 
     return render_template("index.html")
-
 
 
 # View Students
@@ -48,8 +53,10 @@ def students():
 
     data = cursor.fetchall()
 
-    return render_template("students.html", students=data)
-
+    return render_template(
+        "students.html",
+        students=data
+    )
 
 
 # Delete Student
@@ -66,9 +73,8 @@ def delete_student(id):
     return students()
 
 
-
 # Update Student
-@app.route("/update/<int:id>", methods=["GET","POST"])
+@app.route("/update/<int:id>", methods=["GET", "POST"])
 def update_student(id):
 
     if request.method == "POST":
@@ -78,20 +84,21 @@ def update_student(id):
         department = request.form["department"]
         year = request.form["year"]
 
-
         cursor.execute(
-        """
-        UPDATE students
-        SET name=%s,email=%s,department=%s,year=%s
-        WHERE id=%s
-        """,
-        (name,email,department,year,id)
+            """
+            UPDATE students
+            SET name=%s,
+                email=%s,
+                department=%s,
+                year=%s
+            WHERE id=%s
+            """,
+            (name, email, department, year, id)
         )
 
         db.commit()
 
         return students()
-
 
     cursor.execute(
         "SELECT * FROM students WHERE id=%s",
@@ -106,6 +113,10 @@ def update_student(id):
     )
 
 
-
+# Run application
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(
+        host="0.0.0.0",
+        port=int(os.getenv("PORT", 5000)),
+        debug=False
+    )
