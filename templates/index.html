@@ -8,41 +8,57 @@
 
 <body>
 
-<h1>Student Management System</h1>
+<div class="container">
 
-<form action="/add" method="POST">
+    <h1>🎓 Student Management System</h1>
 
-    Name:
-    <input type="text" name="name" required>
-    <br><br>
+    <p>Manage Student Records Efficiently</p>
 
-    Email:
-    <input type="email" name="email" required>
-    <br><br>
+    <form action="/add" method="POST">
 
-    Department:
-    <input type="text" name="department" required>
-    <br><br>
+        <label>Name</label><br>
+        <input type="text" name="name" required>
+        <br><br>
 
-    Year:
-    <input type="number" name="year" required>
-    <br><br>
+        <label>Parent Name</label><br>
+        <input type="text" name="parent_name" required>
+        <br><br>
 
-    <button type="submit">
-        Add Student
-    </button>
+        <label>Mobile Number</label><br>
+        <input type="text" name="mobile" required>
+        <br><br>
 
-</form>
+        <label>Email</label><br>
+        <input type="email" name="email" required>
+        <br><br>
 
+        <label>Department</label><br>
+        <input type="text" name="department" required>
+        <br><br>
 
-<br><br>
+        <label>Year</label><br>
+        <input type="number" name="year" min="1" max="4" required>
+        <br><br>
 
-<a href="/students">
-    <button type="button">
-        View Students
-    </button>
-</a>
+        <label>Attendance (%)</label><br>
+        <input type="number" name="attendance" min="0" max="100" required>
+        <br><br>
 
+        <button type="submit">Add Student</button>
+
+    </form>
+
+    <br>
+
+    <a href="/students">
+        <button type="button">View Students</button>
+    </a>
+
+</div>
+
+<footer>
+    © 2026 Student Management System | Developed by Neha Ballapuram
+</footer>
 
 </body>
 
