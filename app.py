@@ -1,18 +1,23 @@
+import os
 from flask import Flask, render_template, request
 import mysql.connector
 
 app = Flask(__name__)
 
+
+# Database connection
 db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="Nandu@123",
-    database="student_db"
+    host=os.getenv("MYSQLHOST", "localhost"),
+    port=int(os.getenv("MYSQLPORT", 3306)),
+    user=os.getenv("MYSQLUSER", "root"),
+    password=os.getenv("MYSQLPASSWORD", ""),
+    database=os.getenv("MYSQLDATABASE", "student_db")
 )
 
 cursor = db.cursor()
 
 
+# Home
 @app.route("/")
 def home():
     return render_template("index.html")
@@ -23,20 +28,16 @@ def home():
 def add_student():
 
     name = request.form["name"]
-    parent_name = request.form["parent_name"]
-    mobile = request.form["mobile"]
     email = request.form["email"]
     department = request.form["department"]
     year = request.form["year"]
-    attendance = request.form["attendance"]
 
     cursor.execute(
         """
-        INSERT INTO students
-        (name,parent_name,mobile,email,department,year,attendance)
-        VALUES(%s,%s,%s,%s,%s,%s,%s)
+        INSERT INTO students(name, email, department, year)
+        VALUES(%s, %s, %s, %s)
         """,
-        (name, parent_name, mobile, email, department, year, attendance)
+        (name, email, department, year)
     )
 
     db.commit()
@@ -49,9 +50,13 @@ def add_student():
 def students():
 
     cursor.execute("SELECT * FROM students")
+
     data = cursor.fetchall()
 
-    return render_template("students.html", students=data)
+    return render_template(
+        "students.html",
+        students=data
+    )
 
 
 # Delete Student
@@ -75,26 +80,21 @@ def update_student(id):
     if request.method == "POST":
 
         name = request.form["name"]
-        parent_name = request.form["parent_name"]
-        mobile = request.form["mobile"]
         email = request.form["email"]
         department = request.form["department"]
         year = request.form["year"]
-        attendance = request.form["attendance"]
 
-        cursor.execute("""
+        cursor.execute(
+            """
             UPDATE students
-            SET
-                name=%s,
-                parent_name=%s,
-                mobile=%s,
+            SET name=%s,
                 email=%s,
                 department=%s,
-                year=%s,
-                attendance=%s
+                year=%s
             WHERE id=%s
-        """,
-        (name, parent_name, mobile, email, department, year, attendance, id))
+            """,
+            (name, email, department, year, id)
+        )
 
         db.commit()
 
@@ -107,8 +107,16 @@ def update_student(id):
 
     student = cursor.fetchone()
 
-    return render_template("update_student.html", student=student)
+    return render_template(
+        "update_student.html",
+        student=student
+    )
 
 
+# Run application
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(
+        host="0.0.0.0",
+        port=int(os.getenv("PORT", 5000)),
+        debug=False
+    )

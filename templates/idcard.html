@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student ID Card</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>🎓 Student ID Card</h1>
+
+    <div class="card">
+
+        <h2>{{ student[1] }}</h2>
+
+        <p><b>Parent:</b> {{ student[2] }}</p>
+
+        <p><b>Mobile:</b> {{ student[3] }}</p>
+
+        <p><b>Email:</b> {{ student[4] }}</p>
+
+        <p><b>Department:</b> {{ student[5] }}</p>
+
+        <p><b>Year:</b> {{ student[6] }}</p>
+
+        <p><b>Attendance:</b> {{ student[7] }}%</p>
+
+    </div>
+
+    <br>
+
+    <a href="/students">
+        <button>⬅ Back</button>
+    </a>
+
+</div>
+
+</body>
+</html>

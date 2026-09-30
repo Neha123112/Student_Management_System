@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🎓 Student Management Dashboard</h1>
+    <p class="subtitle">Welcome to the Student Management System</p>
+
+    <div class="info-cards">
+
+        <div class="card pink">
+            <h2>👨‍🎓 {{ total_students }}</h2>
+            <p>Total Students</p>
+        </div>
+
+        <div class="card purple">
+            <h2>🏫 {{ departments }}</h2>
+            <p>Departments</p>
+        </div>
+
+        <div class="card blue">
+            <h2>📊 {{ avg_attendance }}%</h2>
+            <p>Average Attendance</p>
+        </div>
+
+        <div class="card green">
+            <h2>🎓 {{ final_year }}</h2>
+            <p>Final Year Students</p>
+        </div>
+
+    </div>
+
+    <br><br>
+
+    <a href="/">
+        <button>➕ Add Student</button>
+    </a>
+
+    <br><br>
+
+    <a href="/students">
+        <button>📋 View Students</button>
+    </a>
+    <br><br>
+    <h2>Student by Department</h2>
+    <canvas id="departmentChart"></canvas>
+    <br><br>
+    <h2>Attendance Distribution</h2>
+    <canvas id="attendanceChart"></canvas>
+
+</div>
+<footer>
+© 2026 Student Management System | Developed by Neha Ballapuram
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+const ctx = document.getElementById('departmentChart');
+
+new Chart(ctx, {
+
+    type: 'bar',
+
+    data: {
+        labels: {{ department_names | tojson }},
+
+        datasets: [{
+            label: 'Students',
+
+            data: {{ department_counts | tojson }}
+
+        }]
+    },
+
+    options: {
+        responsive: true
+    }
+
+});
+
+</script>
+<script>
+
+const attendanceCtx = document.getElementById('attendanceChart');
+
+
+new Chart(attendanceCtx, {
+
+    type: 'pie',
+
+    data: {
+
+        labels: {{ attendance_labels | tojson }},
+
+        datasets: [{
+
+            data: {{ attendance_counts | tojson }}
+
+        }]
+
+    },
+
+    options: {
+
+        responsive: true
+
+    }
+
+});
+
+</script>
+
+</body>
+</body>
+</html>
